@@ -1,22 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ver1;
-using static ver1.IDevice;
+using ver2;
 
-namespace Zadanie3
+namespace Zadanie5
 {
     public class Printer : IPrinter
     {
-        protected IDevice.State state = IDevice.State.off;
+        public IDevice.State state = IDevice.State.off;
         public IDevice.State GetState() => state;
+
+        public void SetState(IDevice.State state)
+        {
+            this.state = state;
+        }
 
         public int PrintCounter { get; private set; }
         public int Counter { get; private set; }
-        
+
         DateTime now = DateTime.Now;
 
         public void PowerOn()
@@ -40,12 +43,19 @@ namespace Zadanie3
 
         public void Print(in IDocument document)
         {
-            if (state == IDevice.State.on && document != null)
+            if (state == IDevice.State.on)
             {
                 Console.WriteLine($"{now.ToString()} Print: {document.GetFileName()}");
                 PrintCounter++;
+
+                if (PrintCounter % 3 == 0 && PrintCounter != 0)
+                {
+                    Console.WriteLine("Enabling standby mode for Printer. It will be ready again after a few seconds ...");
+                    state = IDevice.State.standby;
+                }
             }
         }
+
 
     }
 }

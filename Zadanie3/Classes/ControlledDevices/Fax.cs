@@ -124,7 +124,7 @@ namespace Zadanie3
             }
         }
 
-        public void ClearFaxBook()
+        public static void ClearFaxBook()
         {
             receivedFaxDocumentsByNumber.Clear();
         }

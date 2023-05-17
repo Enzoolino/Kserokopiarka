@@ -9,6 +9,7 @@ namespace ver1
 
         void PowerOn(); // uruchamia urządzenie, zmienia stan na `on`
         void PowerOff(); // wyłącza urządzenie, zmienia stan na `off
+
         State GetState(); // zwraca aktualny stan urządzenia
 
         int Counter {get;}  // zwraca liczbę charakteryzującą eksploatację urządzenia,

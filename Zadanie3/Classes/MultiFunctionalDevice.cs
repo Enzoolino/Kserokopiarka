@@ -17,13 +17,16 @@ namespace Zadanie3
         DateTime now = DateTime.Now;
 
         //Counters - Other
-        public int PrintCounter { get => printer.PrintCounter + fax.printer.PrintCounter;  }
+        public int PrintCounter { get => printer.PrintCounter; }
+        //fax.printer.PrintCounter;
         public int ScanCounter { get => scanner.ScanCounter; }
         public new int Counter { get ; private set; }
 
         //Counters - Fax
         public int FaxSendCounter { get => fax.FaxSendCounter;  }
         public int FaxReceivedCounter { get => fax.FaxReceivedCounter; }
+        public BigInteger FaxNumber { get => fax.FaxNumber; }
+
 
         //Connected Devices
         private Printer printer;
