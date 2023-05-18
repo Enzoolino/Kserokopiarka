@@ -1,21 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Security.Principal;
-using System.Text;
-using System.Threading.Tasks;
 using ver1;
 
 namespace Zadanie1
 {
     public class Copier :BaseDevice, IPrinter, IScanner
     {
+        //Counters
         public int PrintCounter { get; private set; }
         public int ScanCounter { get; private set; }
         public new int Counter { get; private set; }
 
+        //Current local time
         DateTime now = DateTime.Now;
+
 
         public new void PowerOn()
         {
@@ -34,14 +32,18 @@ namespace Zadanie1
             }
         }
 
-
         public void Print(in IDocument document)
         {
             if (state == IDevice.State.on && document != null)
             {
+                Console.ForegroundColor = ConsoleColor.Blue;
+
                 Console.WriteLine($"{now.ToString()} Print: {document.GetFileName()}");
                 PrintCounter++;
+
+                Console.ForegroundColor = ConsoleColor.White;
             }
+            
         }
 
         public void Scan(out IDocument document, IDocument.FormatType formatType = IDocument.FormatType.JPG)
@@ -50,6 +52,8 @@ namespace Zadanie1
 
             if (state == IDevice.State.on)
             {
+                Console.ForegroundColor = ConsoleColor.Red;
+
                 if (formatType == IDocument.FormatType.JPG)
                 {
                     document = new ImageDocument($"ImageScan{ScanCounter}.jpg");
@@ -68,6 +72,8 @@ namespace Zadanie1
                     Console.WriteLine($"{now.ToString()} Scan: {document.GetFileName()}");
                     ScanCounter++;
                 }
+
+                Console.ForegroundColor = ConsoleColor.White;
             } 
         }
 

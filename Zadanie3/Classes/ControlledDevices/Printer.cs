@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Metrics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ver1;
-using static ver1.IDevice;
 
 namespace Zadanie3
 {
@@ -14,6 +9,7 @@ namespace Zadanie3
         protected IDevice.State state = IDevice.State.off;
         public IDevice.State GetState() => state;
 
+        //Counters
         public int PrintCounter { get; private set; }
         public int Counter { get; private set; }
         
@@ -42,8 +38,12 @@ namespace Zadanie3
         {
             if (state == IDevice.State.on && document != null)
             {
+                Console.ForegroundColor = ConsoleColor.Blue;
+
                 Console.WriteLine($"{now.ToString()} Print: {document.GetFileName()}");
                 PrintCounter++;
+
+                Console.ForegroundColor = ConsoleColor.White;
             }
         }
 

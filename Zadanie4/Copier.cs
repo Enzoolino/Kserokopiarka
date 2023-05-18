@@ -1,16 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Security.Principal;
-using System.Text;
-using System.Threading.Tasks;
 using ver2;
 
 namespace Zadanie4
 {
     public class Copier :  IPrinter, IScanner
     {
+        //States of every available module
         protected IDevice.State statePrinter = IDevice.State.off;
         protected IDevice.State stateScanner = IDevice.State.off;
         protected IDevice.State stateCopier
@@ -31,6 +27,7 @@ namespace Zadanie4
             }
         }
         
+        //State set and get
         public IDevice.State GetState() => stateCopier;
 
         public void SetState(IDevice.State state)
@@ -43,6 +40,7 @@ namespace Zadanie4
         public int ScanCounter { get; private set; }
         public  int Counter { get; private set; }
 
+        //Current local time
         DateTime now = DateTime.Now;
 
         public void PowerOn()
@@ -112,12 +110,14 @@ namespace Zadanie4
                     statePrinter = IDevice.State.standby;
                 }
             }
+
             Console.ForegroundColor = ConsoleColor.White;
         }
 
         public void Scan(out IDocument document, IDocument.FormatType formatType = IDocument.FormatType.JPG)
         {
             document = null;
+
             if (stateScanner == IDevice.State.on || stateScanner == IDevice.State.standby)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
@@ -163,6 +163,7 @@ namespace Zadanie4
                     stateScanner = IDevice.State.standby;
                 }
             }
+
             Console.ForegroundColor = ConsoleColor.White;
         }
 

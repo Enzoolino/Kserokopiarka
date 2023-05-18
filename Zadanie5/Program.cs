@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Zadanie5
 {
@@ -39,6 +37,11 @@ namespace Zadanie5
             xerox.Print(in doc1);
             xerox.Scan(out doc1, IDocument.FormatType.PDF);
             xerox.ScanAndPrint();
+
+            Console.WriteLine($"Counter: {xerox.PrintCounter} should be equal to '6'.");
+            Console.WriteLine($"Counter: {xerox.ScanCounter} should be equal to '6'.");
+            Console.WriteLine($"Counter: {xerox.Counter} should be equal to '1'.");
+
         }
     }
 }

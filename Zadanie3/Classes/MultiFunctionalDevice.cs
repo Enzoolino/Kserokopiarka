@@ -1,32 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Linq;
 using System.Numerics;
-using System.Reflection.Metadata.Ecma335;
-using System.Text;
-using System.Threading.Tasks;
 using ver1;
 
 namespace Zadanie3
 {
     public class MultiFunctionalDevice : BaseDevice
     {
-
         //Current local Time
         DateTime now = DateTime.Now;
 
         //Counters - Other
         public int PrintCounter { get => printer.PrintCounter; }
-        //fax.printer.PrintCounter;
         public int ScanCounter { get => scanner.ScanCounter; }
         public new int Counter { get ; private set; }
 
         //Counters - Fax
         public int FaxSendCounter { get => fax.FaxSendCounter;  }
         public int FaxReceivedCounter { get => fax.FaxReceivedCounter; }
-        public BigInteger FaxNumber { get => fax.FaxNumber; }
 
+        //Number of connected (controlled) Fax Device
+        public BigInteger FaxNumber { get => fax.FaxNumber; }
 
         //Connected Devices
         private Printer printer;

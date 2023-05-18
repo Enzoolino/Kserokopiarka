@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Metrics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ver1;
-using static ver1.IDevice;
 
 namespace Zadanie3
 {
@@ -14,7 +9,7 @@ namespace Zadanie3
         protected IDevice.State state = IDevice.State.off;
         public IDevice.State GetState() => state;
 
-
+        //Counters
         public int ScanCounter { get; private set; }
         public int Counter { get; private set; }
 
@@ -47,6 +42,8 @@ namespace Zadanie3
 
             if (state == IDevice.State.on)
             {
+                Console.ForegroundColor = ConsoleColor.Red;
+
                 if (formatType == IDocument.FormatType.JPG)
                 {
                     document = new ImageDocument($"ImageScan{ScanCounter}.jpg");
@@ -65,6 +62,8 @@ namespace Zadanie3
                     Console.WriteLine($"{now.ToString()} Scan: {document.GetFileName()}");
                     ScanCounter++;
                 }
+
+                Console.ForegroundColor = ConsoleColor.White;
             }
         }
 

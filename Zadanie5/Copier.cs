@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Security.Principal;
-using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using ver2;
 
 namespace Zadanie5
 {
     public class Copier 
     {
+        //States of every available module
         protected IDevice.State statePrinter => printer.GetState();
         protected IDevice.State stateScanner => scanner.GetState();
         protected IDevice.State stateCopier
@@ -26,23 +23,26 @@ namespace Zadanie5
             }
         }
 
-        private Printer printer;
-        private Scanner scanner;
-
-        public Copier()
-        {
-            printer = new Printer();
-            scanner = new Scanner();
-        }
-
         public IDevice.State GetState() => stateCopier;
 
         //Counters
         public int PrintCounter { get => printer.PrintCounter; }
         public int ScanCounter { get => scanner.ScanCounter; }
-        public  int Counter { get; private set; }
+        public int Counter { get; private set; }
 
+        //Current local time
         DateTime now = DateTime.Now;
+
+        //Connected (controlled) devices
+        private Printer printer;
+        private Scanner scanner;
+
+        //Constructor
+        public Copier()
+        {
+            printer = new Printer();
+            scanner = new Scanner();
+        }
 
         public void PowerOn()
         {
@@ -85,13 +85,12 @@ namespace Zadanie5
             }
         }
 
-
         public void Print(in IDocument document)
         {
-            ConsoleColor color = ConsoleColor.Blue;
             if ((statePrinter == IDevice.State.on || statePrinter == IDevice.State.standby) && document != null)
             {
-                Console.ForegroundColor = color;
+                Console.ForegroundColor = ConsoleColor.Blue;
+
                 if ((statePrinter == IDevice.State.standby && stateScanner == IDevice.State.on) || PrintCounter + ScanCounter == 0)
                 {
                     System.Threading.Thread.Sleep(2000);
@@ -110,17 +109,18 @@ namespace Zadanie5
 
                 printer.Print(in document);
             }
+
             Console.ForegroundColor = ConsoleColor.White;
         }
 
         public void Scan(out IDocument document, IDocument.FormatType formatType = IDocument.FormatType.JPG)
         {
             document = null;
-            ConsoleColor color = ConsoleColor.Red;
 
             if (stateScanner == IDevice.State.on || stateScanner == IDevice.State.standby)
             {
-                Console.ForegroundColor = color;
+                Console.ForegroundColor = ConsoleColor.Red;
+
                 if ((stateScanner == IDevice.State.standby && statePrinter == IDevice.State.on) || ScanCounter + PrintCounter == 0)
                 {
                     System.Threading.Thread.Sleep(2000);
@@ -139,6 +139,7 @@ namespace Zadanie5
 
                 scanner.Scan(out document, formatType);
             }
+
             Console.ForegroundColor = ConsoleColor.White;
         }
 

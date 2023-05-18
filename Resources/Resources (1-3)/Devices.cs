@@ -48,20 +48,26 @@ namespace ver1
 
     public interface IScanner : IDevice
     {
-        // dokument jest skanowany, jeśli urządzenie włączone
-        // w przeciwnym przypadku nic się dzieje
+        /// <summary>
+        /// Dokument jest skanowany, jeśli urządzenie włączone. W przeciwnym przypadku nic się nie wykonuje
+        /// </summary>
+        /// <param name="document"></param>
+        /// <param name="formatType"></param>
         void Scan(out IDocument document, IDocument.FormatType formatType);
     }
 
     public interface IFax : IDevice
     {
-        // fax wysyła dokument na podany numer, jeśli urządzenie włączone
-        // w przeciwnym wypadku nic się nie dzieje
+        /// <summary>
+        /// Fax wysyła dokument na podany numer, jeśli urządzenie jest włączone. W przeciwnym wypadku nic się nie dzieje
+        /// </summary>
+        /// <param name="document"></param>
+        /// <param name="number"></param>
         void Send (in IDocument document, BigInteger number);
 
-        // fax odbiera dokument, jeśli urządzenie jest włączone
-        // w przeciwnym wypakdu zwraca 'null'
+        /// <summary>
+        /// Fax odbiera dokument, jeśli urządzenie jest włączone. W przeciwnym wypadku nic się nie dzieje
+        /// </summary>
         void Receive();
-        
     }
 }

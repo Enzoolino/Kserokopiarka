@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using System.Numerics;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using ver1;
 
 namespace Zadanie3
@@ -29,7 +25,7 @@ namespace Zadanie3
         //Number of this specific fax device
         public BigInteger FaxNumber { get; private set; }
 
-        //This fax received documents
+        //This fax number received documents
         public List<IDocument> receivedDocuments;
 
         //Connected printer
@@ -79,6 +75,8 @@ namespace Zadanie3
         {
             if (state == IDevice.State.on)
             {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+
                 if (number == FaxNumber)
                 {
                     Console.WriteLine("Fax sending failed." + " You can't send Fax to the same device you are sending it from!");
@@ -89,12 +87,13 @@ namespace Zadanie3
                 }
                 else if (document != null)
                 {
-                    Console.WriteLine($"{now.ToString()} Fax: {document.GetFileName()} Sent to: {number}");
+                    Console.WriteLine($"{now.ToString()} Fax{$"({FaxNumber})"}: {document.GetFileName()} Sent to: {number}");
                     FaxSendCounter++;
 
                     receivedFaxDocumentsByNumber[number].Add(document);
-
                 }
+
+                Console.ForegroundColor = ConsoleColor.White;
             }
         }
 
@@ -102,6 +101,8 @@ namespace Zadanie3
         {
             if (state == IDevice.State.on)
             {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+
                 receivedDocuments = receivedFaxDocumentsByNumber[FaxNumber];
 
                 if (receivedDocuments.Count == 0)
@@ -110,7 +111,7 @@ namespace Zadanie3
                 }
                 else
                 {
-                    Console.WriteLine($"{now.ToString()} Fax: {receivedDocuments.Count} new faxes received:");
+                    Console.WriteLine($"{now.ToString()} Fax{$"({FaxNumber})"}: {receivedDocuments.Count} new faxes received:");
 
                     printer.PowerOn();
                     foreach (var document in receivedDocuments)
@@ -121,6 +122,8 @@ namespace Zadanie3
                     FaxReceivedCounter += receivedDocuments.Count;
                     receivedDocuments.Clear();
                 }
+
+                Console.ForegroundColor = ConsoleColor.White;
             }
         }
 

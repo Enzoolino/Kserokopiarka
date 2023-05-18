@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ver2;
 
 namespace Zadanie4
@@ -23,8 +21,7 @@ namespace Zadanie4
             xerox.Print(in doc1);
             xerox.Print(in doc2);
             xerox.Print(in doc3);
-            
-            
+           
             //Scan test + Switch to standby after 2 Scans
             xerox.Scan(out doc1, IDocument.FormatType.PDF);
             xerox.Scan(out doc2, IDocument.FormatType.TXT);
@@ -40,6 +37,10 @@ namespace Zadanie4
             xerox.Print(in doc1);
             xerox.Scan(out doc1, IDocument.FormatType.PDF);
             xerox.ScanAndPrint();
+
+            Console.WriteLine($"Counter: {xerox.PrintCounter} should be equal to '6'.");
+            Console.WriteLine($"Counter: {xerox.ScanCounter} should be equal to '6'.");
+            Console.WriteLine($"Counter: {xerox.Counter} should be equal to '1'.");
         }
     }
 }

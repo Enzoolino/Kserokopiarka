@@ -69,8 +69,12 @@ namespace Zadanie2
         {
             if (state == IDevice.State.on && document != null)
             {
+                Console.ForegroundColor = ConsoleColor.Blue;
+
                 Console.WriteLine($"{now.ToString()} Print: {document.GetFileName()}");
                 PrintCounter++;
+
+                Console.ForegroundColor = ConsoleColor.White;
             }
         }
 
@@ -80,6 +84,8 @@ namespace Zadanie2
 
             if (state == IDevice.State.on)
             {
+                Console.ForegroundColor = ConsoleColor.Red;
+
                 if (formatType == IDocument.FormatType.JPG)
                 {
                     document = new ImageDocument($"ImageScan{ScanCounter}.jpg");
@@ -98,6 +104,8 @@ namespace Zadanie2
                     Console.WriteLine($"{now.ToString()} Scan: {document.GetFileName()}");
                     ScanCounter++;
                 }
+
+                Console.ForegroundColor = ConsoleColor.White;
             }
         }
 
@@ -106,6 +114,8 @@ namespace Zadanie2
         {
             if (state == IDevice.State.on)
             {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+
                 if (number == FaxNumber)
                 {
                     Console.WriteLine("Fax sending failed."+" You can't send Fax to the same device you are sending it from!");
@@ -116,12 +126,13 @@ namespace Zadanie2
                 }
                 else if (document != null)
                 {
-                    Console.WriteLine($"{now.ToString()} Fax: {document.GetFileName()} Sent to: {number}");
+                    Console.WriteLine($"{now.ToString()} Fax{$"({FaxNumber})"}: {document.GetFileName()} Sent to: {number}");
                     FaxSendCounter++;
 
                     receivedFaxDocumentsByNumber[number].Add(document);
-                    
                 }
+
+                Console.ForegroundColor = ConsoleColor.White;
             }
         }
 
@@ -129,6 +140,8 @@ namespace Zadanie2
         {
             if (state == IDevice.State.on)
             {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+
                 List<IDocument> receivedDocuments = receivedFaxDocumentsByNumber[FaxNumber];
 
                 if (receivedDocuments.Count == 0)
@@ -137,7 +150,7 @@ namespace Zadanie2
                 }
                 else
                 {
-                    Console.WriteLine($"{now.ToString()} Fax: {receivedDocuments.Count} new faxes received:");
+                    Console.WriteLine($"{now.ToString()} Fax{$"({FaxNumber})"}: {receivedDocuments.Count} new faxes received:");
                     foreach (var document in receivedDocuments)
                     {
                         Print(in document);
@@ -145,12 +158,12 @@ namespace Zadanie2
                     FaxReceivedCounter += receivedDocuments.Count;
                     receivedDocuments.Clear();
                 }
-            }
 
+                Console.ForegroundColor = ConsoleColor.White;
+            }
         }
 
-
-        public void ClearFaxBook()
+        public static void ClearFaxBook()
         {
             receivedFaxDocumentsByNumber.Clear();
         }

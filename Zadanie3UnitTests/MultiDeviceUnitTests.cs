@@ -25,7 +25,6 @@ namespace Zadanie3UnitTests
             multiDevice.PowerOff();
 
             Assert.AreEqual(IDevice.State.off, multiDevice.GetState());
-
         }
 
         [TestMethod]
@@ -57,7 +56,6 @@ namespace Zadanie3UnitTests
                 Assert.IsTrue(consoleOutput.GetOutput().Contains("Print"));
             }
             Assert.AreEqual(currentConsoleOut, Console.Out);
-
         }
 
         // weryfikacja, czy po wywołaniu metody `Print` i wyłączonym urządzeniu w napisie NIE pojawia się słowo `Print`
@@ -100,7 +98,7 @@ namespace Zadanie3UnitTests
             Assert.AreEqual(currentConsoleOut, Console.Out);
         }
 
-        // weryfikacja, czy po wywołaniu metody `Scan` i wyłączonym urządzeniu w napisie pojawia się słowo `Scan`
+        // weryfikacja, czy po wywołaniu metody `Scan` i włączonym urządzeniu w napisie pojawia się słowo `Scan`
         // wymagane przekierowanie konsoli do strumienia StringWriter
         [TestMethod]
         public void MultiFunctionalDevice_Scan_DeviceOn()
@@ -118,9 +116,10 @@ namespace Zadanie3UnitTests
                 Assert.IsTrue(consoleOutput.GetOutput().Contains("Scan"));
             }
             Assert.AreEqual(currentConsoleOut, Console.Out);
-
         }
 
+        // weryfikacja, czy po wywołaniu metody `Send` i wyłączonym urządzeniu w napisie pojawia się słowo `Fax`
+        // wymagane przekierowanie konsoli do strumienia StringWriter
         [TestMethod]
         public void MultiFunctionalDevice_Send_DeviceOff()
         {
@@ -140,6 +139,8 @@ namespace Zadanie3UnitTests
             Assert.AreEqual(currentConsoleOut, Console.Out);
         }
 
+        // weryfikacja, czy po wywołaniu metody `Send` i włączonym urządzeniu w napisie pojawia się słowo `Fax`
+        // wymagane przekierowanie konsoli do strumienia StringWriter
         public void MultiFunctionalDevice_Send_DeviceOn()
         {
             ClearFaxBook();
@@ -157,6 +158,8 @@ namespace Zadanie3UnitTests
             Assert.AreEqual(currentConsoleOut, Console.Out);
         }
 
+        // weryfikacja, czy po wywołaniu metody `Receive` i wyłączonym urządzeniu w napisie pojawia się słowo `receive`
+        // wymagane przekierowanie konsoli do strumienia StringWriter
         public void MultiFunctionalDevice_Receive_DeviceOff()
         {
             ClearFaxBook();
@@ -176,6 +179,8 @@ namespace Zadanie3UnitTests
             Assert.AreEqual(currentConsoleOut, Console.Out);
         }
 
+        // weryfikacja, czy po wywołaniu metody `Receive` i włączonym urządzeniu w napisie pojawia się słowo `receive`
+        // wymagane przekierowanie konsoli do strumienia StringWriter
         public void MultiFunctionalDevice_Receive_DeviceOn()
         {
             ClearFaxBook();
@@ -222,9 +227,9 @@ namespace Zadanie3UnitTests
                 Assert.IsTrue(consoleOutput.GetOutput().Contains(".pdf"));
             }
             Assert.AreEqual(currentConsoleOut, Console.Out);
-
         }
 
+        //Weryfikacja czy numer faxu jest poprawnie przypisywany do urządzenia
         [TestMethod]
         public void MultiFunctionalDevice_FaxNumber()
         {
@@ -234,6 +239,7 @@ namespace Zadanie3UnitTests
             Assert.AreEqual(111111111, multiDevice.FaxNumber);
         }
 
+        //Weryfikacja czy numer faxu poprawnie zapisuje się w 'książce' faxów
         [TestMethod]
         public void MultiFunctionalDevice_InFaxBook()
         {
@@ -243,9 +249,9 @@ namespace Zadanie3UnitTests
 
             Assert.IsTrue(Fax.receivedFaxDocumentsByNumber.ContainsKey(multiDevice1.FaxNumber));
             Assert.IsTrue(Fax.receivedFaxDocumentsByNumber.ContainsKey(multiDevice2.FaxNumber));
-
         }
 
+        #region Counters
 
         [TestMethod]
         public void MultiFunctionalDevice_PrintCounter()
@@ -268,7 +274,6 @@ namespace Zadanie3UnitTests
 
             // 3 wydruków, gdy urządzenie włączone
             Assert.AreEqual(3, multiDevice.PrintCounter);
-
         }
 
         [TestMethod]
@@ -291,7 +296,6 @@ namespace Zadanie3UnitTests
             multiDevice2.Receive();
 
             Assert.AreEqual(3, multiDevice2.PrintCounter);
-
         }
 
         [TestMethod]
@@ -316,7 +320,6 @@ namespace Zadanie3UnitTests
 
             // 2 skany, gdy urządzenie włączone
             Assert.AreEqual(2, multiDevice.ScanCounter);
-
         }
 
         [TestMethod]
@@ -348,7 +351,6 @@ namespace Zadanie3UnitTests
 
             // 3 włączenia
             Assert.AreEqual(3, multiDevice.Counter);
-
         }
 
         [TestMethod]
@@ -373,7 +375,6 @@ namespace Zadanie3UnitTests
             multiDevice1.PowerOn();
 
             Assert.AreEqual(2, multiDevice1.FaxSendCounter);
-
         }
 
         [TestMethod]
@@ -406,6 +407,9 @@ namespace Zadanie3UnitTests
 
             Assert.AreEqual(2, multiDevice2.FaxReceivedCounter);
         }
+        #endregion
+
+        #region Errors & Exceptions
 
         [DataTestMethod]
         [DataRow(111111)]
@@ -446,6 +450,7 @@ namespace Zadanie3UnitTests
             }
             Assert.AreEqual(currentConsoleOut, Console.Out);
         }
+
         [TestMethod]
         public void MultiFunctionalDevice_Send_NotInBookError()
         {
@@ -479,8 +484,7 @@ namespace Zadanie3UnitTests
                 Assert.IsTrue(consoleOutput.GetOutput().Contains("No new faxes received."));
             }
             Assert.AreEqual(currentConsoleOut, Console.Out);
-
         }
-
+        #endregion
     }
 }

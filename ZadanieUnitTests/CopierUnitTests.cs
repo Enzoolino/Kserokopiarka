@@ -1,8 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ver1;
-using System;
-using System.IO;
 using Zadanie1;
+using System.IO;
 
 namespace Zadanie1UnitTests
 {
@@ -199,6 +198,8 @@ namespace Zadanie1UnitTests
             Assert.AreEqual(currentConsoleOut, Console.Out);
         }
 
+        #region Counters
+
         [TestMethod]
         public void Copier_PrintCounter()
         {
@@ -282,6 +283,6 @@ namespace Zadanie1UnitTests
             // 3 włączenia
             Assert.AreEqual(3, copier.Counter);
         }
-
+        #endregion
     }
 }

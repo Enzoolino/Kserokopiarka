@@ -1,20 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ver1;
 
 namespace Zadanie3
 {
     public class Copier : BaseDevice
     {
+        //Counters
         public int PrintCounter { get => printer.PrintCounter; }
         public int ScanCounter { get => scanner.ScanCounter; }
         public new int Counter { get; private set; }
 
+        //Current local time
         DateTime now = DateTime.Now;
 
+        //Connected (controlled) devices
         private Printer printer;
         private Scanner scanner;
 
@@ -40,7 +40,6 @@ namespace Zadanie3
                 base.PowerOff();
             }
         }
-
 
         public void Print(in IDocument document)
         {

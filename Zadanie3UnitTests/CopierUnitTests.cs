@@ -196,6 +196,8 @@ namespace Zadanie3UnitTests
                 Assert.AreEqual(currentConsoleOut, Console.Out);
             }
 
+            #region Counters
+
             [TestMethod]
             public void Copier_PrintCounter()
             {
@@ -279,6 +281,7 @@ namespace Zadanie3UnitTests
                 // 3 włączenia
                 Assert.AreEqual(3, copier.Counter);
             }
+            #endregion
         }
     }
 }
